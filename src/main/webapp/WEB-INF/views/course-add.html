@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>THÊM MỚI</h2>
+<form th:action="@{/course/add}" th:object="${course}" method="post" enctype="multipart/form-data">
+    Tên: <input type="text" th:field="*{courseName}">
+    <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" style="color:red"></span><br>
+
+    Giảng viên: <input type="text" th:field="*{instructor}">
+    <span th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}" style="color:#000000"></span><br>
+
+    Thời lượng: <input type="number" th:field="*{duration}">
+    <span th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" style="color:#293c40"></span><br>
+
+    Ảnh: <input type="file" name="imgFile"><br>
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/course/list}">Hủy</a>
+</form>
+</body>
+</html>

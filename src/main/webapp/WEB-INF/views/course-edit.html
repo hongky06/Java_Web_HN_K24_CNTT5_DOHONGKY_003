@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>DANH SÁCH KHÓA HỌC</h2>
+
+<form th:action="@{/course/list}" method="get">
+    <input type="text" name="search" placeholder="Tìm kiếm..." th:value="${param.search}">
+    <button type="submit">Tìm</button>
+</form>
+
+<br><a th:href="@{/course/add}">Thêm mới</a><br><br>
+
+<div th:if="${courses.empty}">Chưa có khóa học nào trong hệ thống</div>
+
+<table th:if="${!courses.empty}" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Ảnh</th>
+        <th>Tên khóa học</th>
+        <th>Giảng viên</th>
+        <th>Thời lượng</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="c : ${courses}">
+        <td th:text="${c.id}"></td>
+        <td><img th:src="${c.thumbnail != null ? '/uploads/'+c.thumbnail : '/assets/images/default.png'}" width="50"></td>
+        <td th:text="${c.courseName}"></td>
+        <td th:text="${c.instructor}"></td>
+        <td th:text="${c.duration}"></td>
+        <td>
+            <a th:href="@{'/course/edit/' + ${c.id}}">Sửa</a>
+            <a th:href="@{'/course/delete/' + ${c.id}}" onclick="return confirm('Xóa?')">Xóa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

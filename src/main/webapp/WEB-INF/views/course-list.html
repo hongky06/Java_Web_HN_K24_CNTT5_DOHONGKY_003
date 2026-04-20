@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1 >HEADER</h1>
+
+<table >
+    <tr>
+        <td>
+            <form th:action="@{/course/list}" method="get">
+                <input type="text" name="search" th:value="${param.search}">
+                <button>Search</button>
+            </form>
+        </td>
+        <td >
+            <a th:href="@{/course/add}"><button>Add</button></a>
+        </td>
+    </tr>
+</table>
+
+<p th:if="${courses.empty}">Danh sách trống</p>
+
+<table th:if="${!courses.empty}">
+    <tr>
+        <th>STT</th>
+        <th>Tên khóa học</th>
+        <th>Giảng viên</th>
+        <th>Thời lượng</th>
+        <th>Ảnh</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="c, i : ${courses}">
+        <td th:text="${i.count}"></td>
+        <td th:text="${c.courseName}"></td>
+        <td th:text="${c.instructor}"></td>
+        <td th:text="${c.duration}"></td>
+        <td><img th:src="${c.thumbnail != null ? '/uploads/'+c.thumbnail : ''}" width="50"></td>
+        <td>
+            <a th:href="@{'/course/edit/'+${c.id}}"><button>Sửa</button></a>
+            <a th:href="@{'/course/delete/'+${c.id}}" onclick="return confirm('Xóa?')"><button>Xóa</button></a>
+        </td>
+    </tr>
+</table>
+
+<h1>FOOTER</h1>
+</body>
+</html>
